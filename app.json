@@ -3,11 +3,11 @@
     "name": "TrackIt",
     "slug": "TrackIt",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./App/assests/TrackIT.png",
-      "resizeMode": "native",
+      "resizeMode": "contain",
       "backgroundColor": "#FFC700"
     },
     "updates": {
