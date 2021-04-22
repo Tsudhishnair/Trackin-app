@@ -1,6 +1,13 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import Card from "../components/Card";
+import FabButton from "../components/FabButton";
 
 import colors from "../config/colors";
 
@@ -21,17 +28,57 @@ export default function Home(props) {
             </View>
             <View style={styles.amountWrapper}>
               <Text style={styles.expenseAmount}>$4,329</Text>
-              <Text style={styles.label}>Balance</Text>
+              <Text style={styles.label}>Expense</Text>
             </View>
           </View>
         </View>
       </Card>
     );
   };
+  const expenseType = "income";
+  const listExpenseView = () => {
+    return (
+      <View style={styles.listExpenseWrapper}>
+        <Text style={styles.date}>Today</Text>
+        <Card>
+          <TouchableOpacity style={styles.listExpenseItem}>
+            <Text style={styles.expenseDesc}>Salary</Text>
+            <Text
+              style={
+                expenseType == "income"
+                  ? styles.incomeAmount
+                  : styles.expenseAmount
+              }
+            >
+              $3290
+            </Text>
+          </TouchableOpacity>
+        </Card>
+        <Card>
+          <TouchableOpacity style={styles.listExpenseItem}>
+            <Text style={styles.label}>Furniture</Text>
+            <Text
+              style={
+                expenseType == "income"
+                  ? styles.incomeAmount
+                  : styles.expenseAmount
+              }
+            >
+              $9
+            </Text>
+          </TouchableOpacity>
+        </Card>
+      </View>
+    );
+  };
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <View style={styles.overViewContainer}>{overViewblock()}</View>
+      <ScrollView style={styles.listExpenses}>{listExpenseView()}</ScrollView>
+      <View style={styles.fabButtonWrapper}>
+        <FabButton />
+      </View>
     </View>
   );
 }
@@ -77,5 +124,31 @@ const styles = StyleSheet.create({
     color: "#D10000",
     fontSize: 20,
     fontWeight: "bold",
+  },
+  listExpenses: {
+    marginVertical: 20,
+  },
+  listExpenseWrapper: {
+    marginHorizontal: 5,
+  },
+  listExpenseItem: {
+    flexDirection: "row",
+    padding: 8,
+    justifyContent: "space-between",
+  },
+  date: {
+    color: colors.textColor,
+    alignSelf: "center",
+    fontSize: 16,
+  },
+  expenseDesc: {
+    color: colors.textColor,
+    fontWeight: "400",
+    fontSize: 14,
+  },
+  fabButtonWrapper: {
+    bottom: 20,
+    alignSelf: "center",
+    position: "absolute",
   },
 });
