@@ -6,7 +6,7 @@ import colors from "../config/colors";
 
 export default function FabButton(props) {
   return (
-    <TouchableOpacity style={styles.button}>
+    <TouchableOpacity style={styles.button} onPress={props.actionFn}>
       <Entypo name="plus" size={24} color="#fff" />
     </TouchableOpacity>
   );
