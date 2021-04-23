@@ -15,11 +15,12 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.brandColor,
     alignItems: "center",
-    height: 60,
+    height: 50,
   },
   logo: {
     width: 140,
     height: 30,
-    marginTop: 15,
+    marginTop: 5,
+    resizeMode: "contain",
   },
 });
