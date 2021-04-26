@@ -1,19 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, StyleSheet, TouchableWithoutFeedback, Text } from "react-native";
+import { useState } from "react/cjs/react.development";
 
 export default function GroupBtn(props) {
+  const [activeBtn, setActiveBtn] = useState(props.defaultValue);
+
+  useEffect(() => {
+    props.currentActiveBtn(props.defaultValue);
+  }, []);
+
   return (
     <View style={styles.container}>
-      <TouchableWithoutFeedback>
-        <View style={styles.activeBtn}>
-          <Text>Income</Text>
-        </View>
-      </TouchableWithoutFeedback>
-      <TouchableWithoutFeedback>
-        <View style={styles.inActiveBtn}>
-          <Text>Expense</Text>
-        </View>
-      </TouchableWithoutFeedback>
+      {props.btn.map((btnItem) => {
+        return (
+          <TouchableWithoutFeedback
+            onPress={() => {
+              if (activeBtn != btnItem) {
+                setActiveBtn(btnItem);
+                props.currentActiveBtn(btnItem);
+              }
+            }}
+          >
+            <View
+              style={
+                btnItem == activeBtn ? styles.activeBtn : styles.inActiveBtn
+              }
+            >
+              <Text>{btnItem}</Text>
+            </View>
+          </TouchableWithoutFeedback>
+        );
+      })}
     </View>
   );
 }

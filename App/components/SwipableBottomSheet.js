@@ -53,6 +53,7 @@ export default function SwipableBottomSheet(props) {
             swipeDown();
             setTimeout(() => {
               props.setBottomSheet(false);
+              props.onClose();
             }, 1000);
           }}
         >
