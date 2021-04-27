@@ -1,6 +1,6 @@
-import React, { createContext, useState } from "react";
-import { FlatList } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { createContext, useState } from 'react';
+import { FlatList } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const MainContext = createContext();
 
@@ -16,10 +16,10 @@ export const MainContextProvider = ({ children }) => {
   const calcuteSumaryValues = () => {
     let tempIncome = 0,
       tempExpense = 0;
-    detailedTrackList.map((perdayList) => {
-      perdayList.details.map((individualExp) => {
+    detailedTrackList.map(perdayList => {
+      perdayList.details.map(individualExp => {
         uniqueIds.push(individualExp.id);
-        individualExp.type == "income"
+        individualExp.type == 'income'
           ? (tempIncome = tempIncome + Number(individualExp.amount))
           : (tempExpense = tempExpense + Number(individualExp.amount));
       });
@@ -32,19 +32,17 @@ export const MainContextProvider = ({ children }) => {
   };
 
   //Delete individual Expenses
-  const deleteIndividualExpenses = (id) => {
+  const deleteIndividualExpenses = id => {
     let tempDetailedList = [...detailedTrackList];
     let updatedList = tempDetailedList
-      .map((perdayList) => {
-        let tempDetails = perdayList.details.filter(
-          (individualExp) => individualExp.id != id
-        );
+      .map(perdayList => {
+        let tempDetails = perdayList.details.filter(individualExp => individualExp.id != id);
         if (tempDetails.length != 0) {
           return { date: perdayList.date, details: [...tempDetails] };
         }
         return null;
       })
-      .filter((items) => items != null);
+      .filter(items => items != null);
     updatetDetailedTrackList(updatedList);
     save(updatedList);
   };
@@ -60,15 +58,13 @@ export const MainContextProvider = ({ children }) => {
   };
 
   //Add new income/expense to the list
-  const addNewExpense = (newExpenseObj) => {
+  const addNewExpense = newExpenseObj => {
     let newUniqueid = generateUniqueId();
     newExpenseObj.details[0].id = newUniqueid;
     let tempDetailedList = [...detailedTrackList];
-    let filteredByDateItem = tempDetailedList.filter(
-      (item) => item.date == newExpenseObj.date
-    );
+    let filteredByDateItem = tempDetailedList.filter(item => item.date == newExpenseObj.date);
     if (filteredByDateItem.length > 0) {
-      let updatedList = tempDetailedList.map((item) => {
+      let updatedList = tempDetailedList.map(item => {
         if (item.date == newExpenseObj.date) {
           item.details.push(newExpenseObj.details[0]);
           return item;
@@ -89,9 +85,9 @@ export const MainContextProvider = ({ children }) => {
   const editExpense = (id, updatedObj) => {
     let tempDetailedList = [...detailedTrackList];
     let dateChanged = false;
-    let updatedList = tempDetailedList.map((perdayList) => {
+    let updatedList = tempDetailedList.map(perdayList => {
       if (perdayList.date == updatedObj.date) {
-        let updatedDetailsList = perdayList.details.map((item) => {
+        let updatedDetailsList = perdayList.details.map(item => {
           if (Number(item.id) == Number(id)) {
             item = { ...updatedObj.details[0] };
             item.id = id;
@@ -103,7 +99,7 @@ export const MainContextProvider = ({ children }) => {
         return { date: updatedObj.date, details: updatedDetailsList };
       } else {
         let updatedDetailsList = perdayList.details
-          .map((item) => {
+          .map(item => {
             if (Number(item.id) != Number(id)) {
               return item;
             } else {
@@ -111,7 +107,7 @@ export const MainContextProvider = ({ children }) => {
               return null;
             }
           })
-          .filter((items) => items != null);
+          .filter(items => items != null);
         return { date: perdayList.date, details: updatedDetailsList };
       }
     });
@@ -123,10 +119,10 @@ export const MainContextProvider = ({ children }) => {
     save(updatedList);
   };
 
-  const save = async (value) => {
+  const save = async value => {
     try {
       const dataObj = JSON.stringify(value || detailedTrackList);
-      await AsyncStorage.setItem("detailedTrackList", dataObj);
+      await AsyncStorage.setItem('detailedTrackList', dataObj);
     } catch (error) {
       alert(error);
     }
@@ -134,7 +130,7 @@ export const MainContextProvider = ({ children }) => {
 
   const load = async () => {
     try {
-      let item = await AsyncStorage.getItem("detailedTrackList");
+      let item = await AsyncStorage.getItem('detailedTrackList');
       if (item != null) {
         item = JSON.parse(item);
         updatetDetailedTrackList(item);
@@ -161,7 +157,5 @@ export const MainContextProvider = ({ children }) => {
     load,
   };
 
-  return (
-    <MainContext.Provider value={contextValue}>{children}</MainContext.Provider>
-  );
+  return <MainContext.Provider value={contextValue}>{children}</MainContext.Provider>;
 };

@@ -1,12 +1,6 @@
-import React, { useRef, useEffect } from "react";
-import {
-  Animated,
-  View,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-} from "react-native";
-import { AntDesign } from "@expo/vector-icons";
+import React, { useRef, useEffect } from 'react';
+import { Animated, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 
 export default function SwipableBottomSheet(props) {
   const swipeHeight = useRef(new Animated.Value(0)).current;
@@ -39,15 +33,14 @@ export default function SwipableBottomSheet(props) {
           {
             height: swipeHeight.interpolate({
               inputRange: [0, 1],
-              outputRange: ["0%", "95%"],
+              outputRange: ['0%', '95%'],
             }),
             padding: swipeHeight.interpolate({
               inputRange: [0, 1],
               outputRange: [0, 20],
             }),
           },
-        ]}
-      >
+        ]}>
         <TouchableOpacity
           onPress={() => {
             swipeDown();
@@ -55,14 +48,8 @@ export default function SwipableBottomSheet(props) {
               props.setBottomSheet(false);
               props.onClose();
             }, 1000);
-          }}
-        >
-          <AntDesign
-            name="close"
-            size={20}
-            color="black"
-            style={{ alignSelf: "flex-end" }}
-          />
+          }}>
+          <AntDesign name="close" size={20} color="black" style={{ alignSelf: 'flex-end' }} />
         </TouchableOpacity>
         {props.children}
       </Animated.View>
@@ -73,13 +60,13 @@ export default function SwipableBottomSheet(props) {
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFill,
-    backgroundColor: "rgba(0,0,0,0.3)",
-    width: "100%",
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    width: '100%',
   },
   swipeCardContainer: {
-    backgroundColor: "#fff",
-    position: "absolute",
-    width: "100%",
+    backgroundColor: '#fff',
+    position: 'absolute',
+    width: '100%',
     bottom: 0,
     borderTopStartRadius: 20,
     borderTopEndRadius: 20,

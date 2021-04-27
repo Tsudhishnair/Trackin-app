@@ -1,33 +1,24 @@
-import React, { useState, useContext, useEffect } from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  TextInput,
-  TouchableWithoutFeedback,
-  StatusBar,
-} from "react-native";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import React, { useState, useContext, useEffect } from 'react';
+import { Text, View, StyleSheet, ScrollView, TouchableOpacity, TextInput, TouchableWithoutFeedback, StatusBar } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
-import Card from "../components/Card";
-import FabButton from "../components/FabButton";
-import GroupBtn from "../components/GroupBtn";
-import SwipableBottomSheet from "../components/SwipableBottomSheet";
-import colors from "../config/colors";
-import { MainContext } from "../contexts/MainContext";
+import Card from '../components/Card';
+import FabButton from '../components/FabButton';
+import GroupBtn from '../components/GroupBtn';
+import SwipableBottomSheet from '../components/SwipableBottomSheet';
+import colors from '../config/colors';
+import { MainContext } from '../contexts/MainContext';
 
 export default function Home(props) {
   // State to show/Hide the swipable bottom sheet
   const [bottomSheetVisible, setBottomSheet] = useState(false);
   // State that determines wheather to show the 'add income/expense' layout or just 'income/expense View' layout
-  const [addOrViewLayout, setAddOrViewLayout] = useState("add");
-  const [currentViewingExp, setCurrentViewingExp] = useState("");
+  const [addOrViewLayout, setAddOrViewLayout] = useState('add');
+  const [currentViewingExp, setCurrentViewingExp] = useState('');
   const [formValue, setFormvalues] = useState({
-    amount: "",
-    type: "income",
-    desc: "",
+    amount: '',
+    type: 'income',
+    desc: '',
     date: new Date().toDateString(),
   });
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -54,26 +45,20 @@ export default function Home(props) {
 
   const overViewblock = () => {
     return (
-      <Card bgcolor={"#fff"}>
+      <Card bgcolor={'#fff'}>
         <View style={styles.overViewBody}>
           <View style={styles.amountWrapper}>
             <Text style={styles.label}>Balance</Text>
-            <Text
-              style={styles.balanceAmount}
-            >{`$${summaryValue.balance}`}</Text>
+            <Text style={styles.balanceAmount}>{`$${summaryValue.balance}`}</Text>
           </View>
           <View style={styles.verticalDivider} />
           <View style={styles.incomeExpenseWrapepr}>
             <View style={styles.amountWrapper}>
               <Text style={styles.label}>Income</Text>
-              <Text
-                style={styles.incomeAmount}
-              >{`$${summaryValue.income}`}</Text>
+              <Text style={styles.incomeAmount}>{`$${summaryValue.income}`}</Text>
             </View>
             <View style={styles.amountWrapper}>
-              <Text
-                style={styles.expenseAmount}
-              >{`$${summaryValue.expense}`}</Text>
+              <Text style={styles.expenseAmount}>{`$${summaryValue.expense}`}</Text>
               <Text style={styles.label}>Expense</Text>
             </View>
           </View>
@@ -98,19 +83,10 @@ export default function Home(props) {
                         onPress={() => {
                           setCurrentViewingExp(item.id);
                           setBottomSheet(true);
-                          setAddOrViewLayout("view");
-                        }}
-                      >
+                          setAddOrViewLayout('view');
+                        }}>
                         <Text style={styles.expenseDesc}>{item.desc}</Text>
-                        <Text
-                          style={
-                            item.type == "income"
-                              ? styles.incomeAmount
-                              : styles.expenseAmount
-                          }
-                        >
-                          {`$${item.amount}`}
-                        </Text>
+                        <Text style={item.type == 'income' ? styles.incomeAmount : styles.expenseAmount}>{`$${item.amount}`}</Text>
                       </TouchableOpacity>
                     </Card>
                   );
@@ -123,24 +99,20 @@ export default function Home(props) {
   };
 
   const addEditExpenseLayout = () => {
-    const currentActiveBtn = (activeBtn) => {
+    const currentActiveBtn = activeBtn => {
       setFormvalues({ ...formValue, type: activeBtn });
     };
 
     return (
       <View>
         <Text style={styles.sheetHeader}>Add Income/Expense</Text>
-        <GroupBtn
-          btn={["income", "expense"]}
-          currentActiveBtn={currentActiveBtn}
-          defaultValue={formValue.type}
-        />
+        <GroupBtn btn={['income', 'expense']} currentActiveBtn={currentActiveBtn} defaultValue={formValue.type} />
         <TextInput
           placeholder="Amount"
           style={styles.input}
-          keyboardType={"numeric"}
+          keyboardType={'numeric'}
           value={formValue.amount.toString()}
-          onChangeText={(value) => {
+          onChangeText={value => {
             setFormvalues({ ...formValue, amount: value });
           }}
         />
@@ -148,17 +120,16 @@ export default function Home(props) {
           placeholder="Description"
           style={styles.input}
           value={formValue.desc}
-          onChangeText={(value) => {
+          onChangeText={value => {
             setFormvalues({ ...formValue, desc: value });
           }}
         />
         <TouchableWithoutFeedback
           onPress={() => {
             setShowDatePicker(true);
-          }}
-        >
+          }}>
           <View style={styles.customDatePicker}>
-            <Text>{formValue.date.toString() || "Date"}</Text>
+            <Text>{formValue.date.toString() || 'Date'}</Text>
           </View>
         </TouchableWithoutFeedback>
 
@@ -170,8 +141,7 @@ export default function Home(props) {
             is24Hour={true}
             display="default"
             onChange={(e, selectedDate) => {
-              const currentDate =
-                selectedDate.toDateString() || formValue.date.toString();
+              const currentDate = selectedDate.toDateString() || formValue.date.toString();
               setFormvalues({ ...formValue, date: currentDate });
               setShowDatePicker(false);
             }}
@@ -192,20 +162,19 @@ export default function Home(props) {
               ],
             };
             //This checks wheather to call the add new Fn or edit function. currentViewingExp will only have the id if we click on individual expense item
-            if (currentViewingExp != "") {
+            if (currentViewingExp != '') {
               editExpense(currentViewingExp, dataObj);
-              setCurrentViewingExp("");
+              setCurrentViewingExp('');
             } else {
               addNewExpense(dataObj);
             }
             setFormvalues({
-              type: "income",
-              amount: "",
-              desc: "",
+              type: 'income',
+              amount: '',
+              desc: '',
               date: new Date().toDateString(),
             });
-          }}
-        >
+          }}>
           <View style={styles.saveBtn}>
             <Text style={styles.saveBtnText}>Save</Text>
           </View>
@@ -214,7 +183,7 @@ export default function Home(props) {
     );
   };
 
-  const viewIndividualExpense = (id) => {
+  const viewIndividualExpense = id => {
     return (
       <>
         {detailedTrackList.length > 0 &&
@@ -222,53 +191,32 @@ export default function Home(props) {
             return (
               <View key={index}>
                 {individualExpenseDetails.details
-                  .filter((item) => item.id == id)
+                  .filter(item => item.id == id)
                   .map((filteredList, index) => (
                     <View key={index} style={styles.detailedExpenseWrapper}>
-                      <Text
-                        style={[
-                          styles.labelHeader,
-                          { textTransform: "capitalize" },
-                        ]}
-                      >
-                        {filteredList.type}
-                      </Text>
-                      <Text
-                        style={[
-                          styles.individualAmount,
-                          filteredList.type == "income"
-                            ? { color: colors.green }
-                            : { color: colors.red },
-                        ]}
-                      >
+                      <Text style={[styles.labelHeader, { textTransform: 'capitalize' }]}>{filteredList.type}</Text>
+                      <Text style={[styles.individualAmount, filteredList.type == 'income' ? { color: colors.green } : { color: colors.red }]}>
                         {`$${filteredList.amount}`}
                       </Text>
-                      <Text style={styles.individualDesc}>
-                        {filteredList.desc}
-                      </Text>
-                      <Text style={styles.individualDate}>
-                        {individualExpenseDetails.date || "-"}
-                      </Text>
+                      <Text style={styles.individualDesc}>{filteredList.desc}</Text>
+                      <Text style={styles.individualDate}>{individualExpenseDetails.date || '-'}</Text>
                       <TouchableOpacity
                         onPress={() => {
-                          setAddOrViewLayout("add");
-                          detailedTrackList.map((individualExpenseDetails) => {
-                            return individualExpenseDetails.details.map(
-                              (item) => {
-                                if (item.id == currentViewingExp) {
-                                  setFormvalues({
-                                    type: item.type,
-                                    amount: item.amount.toString(),
-                                    desc: item.desc,
-                                    date: individualExpenseDetails.date.toString(),
-                                  });
-                                }
+                          setAddOrViewLayout('add');
+                          detailedTrackList.map(individualExpenseDetails => {
+                            return individualExpenseDetails.details.map(item => {
+                              if (item.id == currentViewingExp) {
+                                setFormvalues({
+                                  type: item.type,
+                                  amount: item.amount.toString(),
+                                  desc: item.desc,
+                                  date: individualExpenseDetails.date.toString(),
+                                });
                               }
-                            );
+                            });
                           });
                         }}
-                        style={{ marginTop: 15 }}
-                      >
+                        style={{ marginTop: 15 }}>
                         <Text style={styles.editBtnTxt}>Edit</Text>
                       </TouchableOpacity>
                       <TouchableOpacity
@@ -276,8 +224,7 @@ export default function Home(props) {
                           deleteIndividualExpenses(id);
                           setBottomSheet(false);
                         }}
-                        style={{ marginVertical: 10 }}
-                      >
+                        style={{ marginVertical: 10 }}>
                         <Text style={styles.deleteBtnTxt}>Delete</Text>
                       </TouchableOpacity>
                     </View>
@@ -298,7 +245,7 @@ export default function Home(props) {
         <FabButton
           actionFn={() => {
             setBottomSheet(true);
-            setAddOrViewLayout("add");
+            setAddOrViewLayout('add');
           }}
         />
       </View>
@@ -307,18 +254,15 @@ export default function Home(props) {
           toHeight={90}
           setBottomSheet={setBottomSheet}
           onClose={() => {
-            setCurrentViewingExp("");
+            setCurrentViewingExp('');
             setFormvalues({
-              type: "income",
-              amount: "",
-              desc: "",
+              type: 'income',
+              amount: '',
+              desc: '',
               date: new Date().toDateString(),
             });
-          }}
-        >
-          {addOrViewLayout == "add"
-            ? addEditExpenseLayout()
-            : viewIndividualExpense(currentViewingExp)}
+          }}>
+          {addOrViewLayout == 'add' ? addEditExpenseLayout() : viewIndividualExpense(currentViewingExp)}
         </SwipableBottomSheet>
       )}
     </View>
@@ -327,45 +271,45 @@ export default function Home(props) {
 
 const styles = StyleSheet.create({
   overViewContainer: {
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     padding: 5,
   },
   overViewBody: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-evenly",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
   },
   verticalDivider: {
-    borderColor: "#D3D3D3",
-    display: "flex",
-    flexDirection: "column",
+    borderColor: '#D3D3D3',
+    display: 'flex',
+    flexDirection: 'column',
     borderWidth: StyleSheet.hairlineWidth,
   },
   amountWrapper: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     marginVertical: 8,
   },
   label: {
     color: colors.textColor,
   },
   balanceAmount: {
-    color: "#02BEE8",
-    fontWeight: "bold",
+    color: '#02BEE8',
+    fontWeight: 'bold',
     fontSize: 24,
   },
   incomeExpenseWrapepr: {
-    alignItems: "center",
+    alignItems: 'center',
   },
   incomeAmount: {
-    color: "#00B152",
+    color: '#00B152',
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   expenseAmount: {
-    color: "#D10000",
+    color: '#D10000',
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   listExpenses: {
     marginVertical: 20,
@@ -374,51 +318,51 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   listExpenseItem: {
-    flexDirection: "row",
+    flexDirection: 'row',
     padding: 8,
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
   },
   date: {
     color: colors.textColor,
-    alignSelf: "center",
+    alignSelf: 'center',
     fontSize: 16,
   },
   expenseDesc: {
     color: colors.textColor,
-    fontWeight: "400",
+    fontWeight: '400',
     fontSize: 14,
   },
   fabButtonWrapper: {
     bottom: 20,
-    alignSelf: "center",
-    position: "absolute",
+    alignSelf: 'center',
+    position: 'absolute',
   },
   sheetHeader: {
     color: colors.textColor,
     fontSize: 20,
-    alignSelf: "center",
+    alignSelf: 'center',
   },
   input: {
     height: 40,
     marginVertical: 15,
-    borderColor: "#D3D3D3",
+    borderColor: '#D3D3D3',
     borderRadius: 8,
     padding: 10,
     borderWidth: 1,
   },
   saveBtn: {
-    alignSelf: "center",
+    alignSelf: 'center',
   },
   saveBtnText: {
     color: colors.green,
     fontSize: 16,
-    fontWeight: "400",
+    fontWeight: '400',
   },
   detailedExpenseWrapper: {
-    alignItems: "center",
+    alignItems: 'center',
   },
   labelHeader: {
-    fontWeight: "400",
+    fontWeight: '400',
     fontSize: 18,
     color: colors.textColor,
   },
@@ -426,7 +370,7 @@ const styles = StyleSheet.create({
     marginVertical: 50,
     fontSize: 32,
     color: colors.red,
-    fontWeight: "700",
+    fontWeight: '700',
   },
   editBtnTxt: {
     color: colors.brandColor,
@@ -441,7 +385,7 @@ const styles = StyleSheet.create({
   },
   customDatePicker: {
     marginVertical: 10,
-    borderColor: "#d4d4d4",
+    borderColor: '#d4d4d4',
     padding: 9,
     borderRadius: 8,
     borderWidth: 1,
