@@ -86,13 +86,13 @@ export default function Home(props) {
     return (
       <View style={styles.listExpenseWrapper}>
         {detailedTrackList.length != 0 &&
-          detailedTrackList.map((individualExpenseDetails) => {
+          detailedTrackList.map((individualExpenseDetails, index) => {
             return (
-              <>
+              <View key={index}>
                 <Text style={styles.date}>{individualExpenseDetails.date}</Text>
-                {individualExpenseDetails.details.map((item) => {
+                {individualExpenseDetails.details.map((item, index) => {
                   return (
-                    <Card>
+                    <Card key={index}>
                       <TouchableOpacity
                         style={styles.listExpenseItem}
                         onPress={() => {
@@ -115,7 +115,7 @@ export default function Home(props) {
                     </Card>
                   );
                 })}
-              </>
+              </View>
             );
           })}
       </View>
@@ -216,15 +216,15 @@ export default function Home(props) {
 
   const viewIndividualExpense = (id) => {
     return (
-      <View style={styles.detailedExpenseWrapper}>
+      <>
         {detailedTrackList.length > 0 &&
-          detailedTrackList.map((individualExpenseDetails) => {
+          detailedTrackList.map((individualExpenseDetails, index) => {
             return (
-              <>
+              <View key={index}>
                 {individualExpenseDetails.details
                   .filter((item) => item.id == id)
-                  .map((filteredList) => (
-                    <>
+                  .map((filteredList, index) => (
+                    <View key={index} style={styles.detailedExpenseWrapper}>
                       <Text
                         style={[
                           styles.labelHeader,
@@ -280,12 +280,12 @@ export default function Home(props) {
                       >
                         <Text style={styles.deleteBtnTxt}>Delete</Text>
                       </TouchableOpacity>
-                    </>
+                    </View>
                   ))}
-              </>
+              </View>
             );
           })}
-      </View>
+      </>
     );
   };
 
