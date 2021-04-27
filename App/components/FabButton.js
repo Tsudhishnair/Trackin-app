@@ -1,8 +1,8 @@
-import React from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
-import { Entypo } from "@expo/vector-icons";
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Entypo } from '@expo/vector-icons';
 
-import colors from "../config/colors";
+import colors from '../config/colors';
 
 export default function FabButton(props) {
   return (
@@ -14,12 +14,12 @@ export default function FabButton(props) {
 
 const styles = StyleSheet.create({
   button: {
-    alignItems: "center",
+    alignItems: 'center',
     padding: 10,
     borderRadius: 20,
     backgroundColor: colors.brandColor,
     width: 56,
     height: 56,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
 });
