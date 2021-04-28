@@ -41,7 +41,7 @@ export const MainContextProvider = ({ children }) => {
         return null;
       })
       .filter(items => items != null);
-    updateDetailedTrackList(updatedList);
+    updateExpenseItems(updatedList);
     save(updatedList);
   };
 
@@ -70,11 +70,11 @@ export const MainContextProvider = ({ children }) => {
           return item;
         }
       });
-      updateDetailedTrackList(updatedList);
+      updateExpenseItems(updatedList);
       save(updatedList);
     } else {
       tempDetailedList.push(newExpenseObj);
-      updateDetailedTrackList(tempDetailedList);
+      updateExpenseItems(tempDetailedList);
       save(tempDetailedList);
     }
   };
@@ -113,7 +113,7 @@ export const MainContextProvider = ({ children }) => {
       updatedObj.details[0].id = generateUniqueId();
       updatedList.push(updatedObj);
     }
-    updateDetailedTrackList(updatedList);
+    updateExpenseItems(updatedList);
     save(updatedList);
   };
 
@@ -131,11 +131,18 @@ export const MainContextProvider = ({ children }) => {
       let item = await AsyncStorage.getItem('detailedTrackList');
       if (item != null) {
         item = JSON.parse(item);
-        updateDetailedTrackList(item);
+        updateExpenseItems(item);
       }
     } catch (error) {
       alert(error);
     }
+  };
+
+  const updateExpenseItems = items => {
+    items.sort((item1, item2) => {
+      return new Date(item1.date).valueOf() - new Date(item2.date).valueOf();
+    });
+    updateDetailedTrackList(items);
   };
 
   // For showing and setting detailed income/expense list

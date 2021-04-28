@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableWithoutFeedback, StyleSheet } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import dayjs from 'dayjs';
 
 import GroupBtn from '../../../components/GroupBtn';
 import colors from '../../../config/colors';
@@ -12,9 +13,9 @@ export default function AddEditExpenseLayout({ setFormValues, formValue, handleS
     setFormValues({ ...formValue, type: activeBtn });
   };
   const handleDatePicker = selectedDate => {
-    const currentDate = selectedDate.toDateString() || formValue.date.toString();
-    setFormValues({ ...formValue, date: currentDate });
+    const currentDate = dayjs(selectedDate).format('MMMM D, YYYY') || formValue.date;
     setShowDatePicker(false);
+    setFormValues({ ...formValue, date: currentDate });
   };
 
   return (
@@ -43,13 +44,13 @@ export default function AddEditExpenseLayout({ setFormValues, formValue, handleS
           setShowDatePicker(true);
         }}>
         <View style={styles.customDatePicker}>
-          <Text>{formValue.date.toString() || 'Date'}</Text>
+          <Text>{formValue.date || 'Date'}</Text>
         </View>
       </TouchableWithoutFeedback>
       {showDatePicker && (
         <DateTimePicker
           testID="dateTimePicker"
-          value={new Date(formValue.date)}
+          value={dayjs(formValue.date).toDate()}
           mode="date"
           is24Hour={true}
           display="default"

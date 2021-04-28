@@ -14,7 +14,7 @@ export default function ViewIndividualExpenseLayout({ id, detailedTrackList, han
                 .filter(item => item.id == id)
                 .map((filteredList, index) => (
                   <View key={`individual-expense-details-${index}`} style={styles.detailedExpenseWrapper}>
-                    <Text style={[styles.labelHeader, { textTransform: 'capitalize' }]}>{filteredList.type}</Text>
+                    <Text style={[styles.labelHeader]}>{filteredList.type}</Text>
                     <Text style={[styles.individualAmount, filteredList.type == 'income' ? { color: colors.green } : { color: colors.red }]}>
                       {`$${filteredList.amount}`}
                     </Text>
@@ -57,9 +57,12 @@ const styles = StyleSheet.create({
     fontSize: 32,
     color: colors.red,
     fontWeight: '700',
+    textTransform: 'capitalize',
   },
   individualDate: {
     color: colors.textColor,
+    fontSize: 16,
+    fontWeight: '600',
     marginVertical: 10,
   },
   individualDesc: {
