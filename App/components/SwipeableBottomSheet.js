@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { Animated, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
-export default function SwipableBottomSheet(props) {
+export default function SwipeableBottomSheet(props) {
   const swipeHeight = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
