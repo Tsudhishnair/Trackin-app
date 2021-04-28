@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from 'react';
 import { View, StyleSheet, ScrollView, StatusBar } from 'react-native';
 
 import FabButton from '../../components/FabButton';
-
 import SwipeableBottomSheet from '../../components/SwipeableBottomSheet';
 import colors from '../../config/colors';
 import { MainContext } from '../../contexts/MainContext';
@@ -10,6 +9,7 @@ import ViewIndividualExpenseLayout from './Layout/IndividualExpenseDetails';
 import AddEditExpenseLayout from './Layout/AddEditExpense';
 import OverViewBlock from './Layout/OverViewBlock';
 import ListExpenseLayout from './Layout/ListExpense';
+import dayjs from 'dayjs';
 
 export default function Home() {
   const [bottomSheetVisible, setBottomSheet] = useState(false);
@@ -19,7 +19,7 @@ export default function Home() {
     amount: '',
     type: 'income',
     desc: '',
-    date: new Date().toDateString(),
+    date: dayjs().format('MMMM D, YYYY'),
   });
 
   const { summaryValue, detailedTrackList, calculateSummaryValues, deleteIndividualExpenses, addNewExpense, editExpense, load } = useContext(
@@ -58,7 +58,7 @@ export default function Home() {
   const handleSaveNewExpense = () => {
     setBottomSheet(false);
     let dataObj = {
-      date: formValue.date.toString(),
+      date: dayjs(formValue.date).format('MMMM D, YYYY'),
       details: [
         {
           type: formValue.type,
@@ -82,7 +82,7 @@ export default function Home() {
       type: 'income',
       amount: '',
       desc: '',
-      date: new Date().toDateString(),
+      date: dayjs(formValue.date).format('MMMM D, YYYY'),
     });
   };
 

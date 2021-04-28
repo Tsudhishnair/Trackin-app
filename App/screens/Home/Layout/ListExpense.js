@@ -1,15 +1,25 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import dayjs from 'dayjs';
 
 import Card from '../../../components/Card';
 import colors from '../../../config/colors';
 
 export default function ListExpenseLayout(props) {
   const { setAddOrViewLayout, setCurrentViewingExp, setBottomSheet, detailedTrackList } = props;
+
   const onItemPress = id => {
     setCurrentViewingExp(id);
     setBottomSheet(true);
     setAddOrViewLayout('view');
+  };
+
+  const formatDate = date => {
+    if (date == dayjs().format('MMMM D, YYYY')) {
+      return 'Today';
+    } else {
+      return date;
+    }
   };
 
   return (
@@ -18,7 +28,7 @@ export default function ListExpenseLayout(props) {
         detailedTrackList.map((individualExpenseDetails, index) => {
           return (
             <View key={index}>
-              <Text style={styles.date}>{individualExpenseDetails.date}</Text>
+              <Text style={styles.date}>{formatDate(individualExpenseDetails.date)}</Text>
               {individualExpenseDetails.details.map((item, index) => {
                 return (
                   <Card key={index}>
