@@ -140,7 +140,7 @@ export const MainContextProvider = ({ children }) => {
 
   const updateExpenseItems = items => {
     items.sort((item1, item2) => {
-      return new Date(item1.date).valueOf() - new Date(item2.date).valueOf();
+      return new Date(item2.date).valueOf() - new Date(item1.date).valueOf();
     });
     updateDetailedTrackList(items);
   };
