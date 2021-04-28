@@ -6,7 +6,7 @@ import colors from '../config/colors';
 export default function Navbar() {
   return (
     <View style={styles.container}>
-      <Image source={require('../assests/TrackIT.png')} style={styles.logo} />
+      <Image source={require('../assets/TrackIT.png')} style={styles.logo} />
     </View>
   );
 }
