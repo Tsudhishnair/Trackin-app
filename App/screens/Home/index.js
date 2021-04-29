@@ -10,18 +10,19 @@ import AddEditExpenseLayout from './Layout/AddEditExpense';
 import OverViewBlock from './Layout/OverViewBlock';
 import ListExpenseLayout from './Layout/ListExpense';
 import dayjs from 'dayjs';
+import Toast from '../../components/toast';
 
 export default function Home() {
   const [bottomSheetVisible, setBottomSheet] = useState(false);
   const [addOrViewLayout, setAddOrViewLayout] = useState('add');
   const [currentViewingExp, setCurrentViewingExp] = useState('');
+  const [toast, setToast] = useState({ type: 'success', message: '', showToast: false });
   const [formValue, setFormValues] = useState({
     amount: '',
     type: 'income',
     desc: '',
     date: dayjs().format('MMMM D, YYYY'),
   });
-
   const { summaryValue, detailedTrackList, calculateSummaryValues, deleteIndividualExpenses, addNewExpense, editExpense, load } = useContext(
     MainContext
   );
@@ -56,6 +57,10 @@ export default function Home() {
   };
 
   const handleSaveNewExpense = () => {
+    if (formValue.amount == '' || formValue.desc == '') {
+      setToast({ type: 'warning', message: 'Some fields are not filled.', showToast: true });
+      return;
+    }
     setBottomSheet(false);
     let dataObj = {
       date: dayjs(formValue.date).format('MMMM D, YYYY'),
@@ -70,9 +75,12 @@ export default function Home() {
     //This checks whether to call the add new Fn or edit function. currentViewingExp will only have the id if we click on individual expense item
     if (currentViewingExp != '') {
       editExpense(currentViewingExp, dataObj);
+      setToast({ type: 'success', message: 'Entry updated successfully.', showToast: true });
     } else {
       addNewExpense(dataObj);
+      setToast({ type: 'success', message: 'Entry added successfully.', showToast: true });
     }
+
     handleFormReset();
   };
 
@@ -129,6 +137,7 @@ export default function Home() {
           )}
         </SwipeableBottomSheet>
       )}
+      {toast.showToast && <Toast toastObj={toast} handleToast={setToast} />}
     </View>
   );
 }
