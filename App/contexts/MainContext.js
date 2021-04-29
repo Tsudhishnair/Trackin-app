@@ -81,34 +81,43 @@ export const MainContextProvider = ({ children }) => {
     let tempDetailedList = [...detailedTrackList];
     let dateChanged = false;
     let updatedList = tempDetailedList.map(perDayList => {
-      if (perDayList.date == updatedObj.date) {
-        let updatedDetailsList = perDayList.details.map(item => {
-          if (Number(item.id) === Number(id)) {
-            item = { ...updatedObj.details[0] };
-            item.id = id;
-            return item;
-          } else {
-            return item;
-          }
-        });
-        return { date: updatedObj.date, details: updatedDetailsList };
-      } else {
-        let updatedDetailsList = perDayList.details
-          .map(item => {
-            if (Number(item.id) != Number(id)) {
-              return item;
+      let updatedDetailsList = perDayList.details
+        .map(individualExp => {
+          if (Number(individualExp.id) == Number(id)) {
+            if (perDayList.date == updatedObj.date) {
+              individualExp = { ...updatedObj.details[0] };
+              individualExp.id = id;
+              return individualExp;
             } else {
               dateChanged = true;
               return null;
             }
-          })
-          .filter(items => items != null);
-        return { date: perDayList.date, details: updatedDetailsList };
-      }
+          } else {
+            return individualExp;
+          }
+        })
+        .filter(item => item != null);
+      return { date: perDayList.date, details: updatedDetailsList };
     });
-    if (dateChanged === true) {
+
+    if (dateChanged == true) {
+      let dateArray = tempDetailedList.map(item => {
+        return item.date;
+      });
+      let changedToNewDate = !dateArray.includes(updatedObj.date);
       updatedObj.details[0].id = generateUniqueId();
-      updatedList.push(updatedObj);
+      if (changedToNewDate) {
+        updatedList.push(updatedObj);
+      } else {
+        updatedList = updatedList.map(perDayList => {
+          if (perDayList.date == updatedObj.date) {
+            perDayList.details.push(updatedObj.details[0]);
+            return perDayList;
+          } else {
+            return perDayList;
+          }
+        });
+      }
     }
     updateExpenseItems(updatedList);
     save(updatedList);
