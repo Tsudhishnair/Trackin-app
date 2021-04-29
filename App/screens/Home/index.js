@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { View, StyleSheet, ScrollView, StatusBar } from 'react-native';
+import { View, StyleSheet, StatusBar } from 'react-native';
 
 import FabButton from '../../components/FabButton';
 import SwipeableBottomSheet from '../../components/SwipeableBottomSheet';
@@ -103,14 +103,12 @@ export default function Home() {
     <View style={{ flex: 1 }}>
       <StatusBar barStyle="light-content" backgroundColor={colors.brandColor} />
       <OverViewBlock summaryValue={summaryValue} />
-      <ScrollView style={styles.listExpenses}>
-        <ListExpenseLayout
-          detailedTrackList={detailedTrackList}
-          setCurrentViewingExp={setCurrentViewingExp}
-          setBottomSheet={setBottomSheet}
-          setAddOrViewLayout={setAddOrViewLayout}
-        />
-      </ScrollView>
+      <ListExpenseLayout
+        detailedTrackList={detailedTrackList}
+        setCurrentViewingExp={setCurrentViewingExp}
+        setBottomSheet={setBottomSheet}
+        setAddOrViewLayout={setAddOrViewLayout}
+      />
       <View style={styles.fabButtonWrapper}>
         <FabButton
           actionFn={() => {
@@ -143,9 +141,6 @@ export default function Home() {
 }
 
 const styles = StyleSheet.create({
-  listExpenses: {
-    marginVertical: 20,
-  },
   fabButtonWrapper: {
     bottom: 20,
     alignSelf: 'center',
