@@ -15,7 +15,7 @@ export default function ListExpenseLayout(props) {
   };
 
   const formatDate = date => {
-    if (date == dayjs().format('MMMM D, YYYY')) {
+    if (date === dayjs().format('MMMM D, YYYY')) {
       return 'Today';
     } else {
       return date;
@@ -38,7 +38,7 @@ export default function ListExpenseLayout(props) {
                         onItemPress(item.id);
                       }}>
                       <Text style={styles.expenseDesc}>{item.desc}</Text>
-                      <Text style={item.type == 'income' ? styles.incomeAmount : styles.expenseAmount}>{`$${item.amount}`}</Text>
+                      <Text style={item.type === 'income' ? styles.incomeAmount : styles.expenseAmount}>{`$${item.amount}`}</Text>
                     </TouchableOpacity>
                   </Card>
                 );

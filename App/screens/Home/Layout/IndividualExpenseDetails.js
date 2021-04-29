@@ -11,11 +11,11 @@ export default function ViewIndividualExpenseLayout({ id, detailedTrackList, han
           return (
             <View key={index}>
               {individualExpenseDetails.details
-                .filter(item => item.id == id)
+                .filter(item => item.id === id)
                 .map((filteredList, index) => (
                   <View key={`individual-expense-details-${index}`} style={styles.detailedExpenseWrapper}>
                     <Text style={[styles.labelHeader]}>{filteredList.type}</Text>
-                    <Text style={[styles.individualAmount, filteredList.type == 'income' ? { color: colors.green } : { color: colors.red }]}>
+                    <Text style={[styles.individualAmount, filteredList.type === 'income' ? { color: colors.green } : { color: colors.red }]}>
                       {`$${filteredList.amount}`}
                     </Text>
                     <Text style={styles.individualDesc}>{filteredList.desc}</Text>
