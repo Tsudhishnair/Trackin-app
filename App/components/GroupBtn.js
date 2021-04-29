@@ -21,7 +21,7 @@ export default function GroupBtn(props) {
               }
             }}
             key={index}>
-            <View style={btnItem == activeBtn ? styles.activeBtn : styles.inActiveBtn}>
+            <View style={btnItem === activeBtn ? styles.activeBtn : styles.inActiveBtn}>
               <Text style={{ textTransform: 'capitalize' }}>{btnItem}</Text>
             </View>
           </TouchableWithoutFeedback>

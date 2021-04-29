@@ -39,7 +39,7 @@ export default function Home() {
     setAddOrViewLayout('add');
     detailedTrackList.map(individualExpenseDetails => {
       return individualExpenseDetails.details.map(item => {
-        if (item.id == id) {
+        if (item.id === id) {
           setFormValues({
             type: item.type,
             amount: item.amount.toString(),
@@ -57,7 +57,7 @@ export default function Home() {
   };
 
   const handleSaveNewExpense = () => {
-    if (formValue.amount == '' || formValue.desc == '') {
+    if (formValue.amount === '' || formValue.desc === '') {
       setToast({ type: 'warning', message: 'Some fields are not filled.', showToast: true });
       return;
     }
@@ -125,7 +125,7 @@ export default function Home() {
           onClose={() => {
             handleFormReset();
           }}>
-          {addOrViewLayout == 'add' ? (
+          {addOrViewLayout === 'add' ? (
             <AddEditExpenseLayout setFormValues={setFormValues} formValue={formValue} handleSave={handleSaveNewExpense} />
           ) : (
             <ViewIndividualExpenseLayout

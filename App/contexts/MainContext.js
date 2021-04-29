@@ -17,7 +17,7 @@ export const MainContextProvider = ({ children }) => {
     detailedTrackList.map(perDayList => {
       perDayList.details.map(individualExp => {
         uniqueIds.push(individualExp.id);
-        individualExp.type == 'income'
+        individualExp.type === 'income'
           ? (tempIncome = tempIncome + Number(individualExp.amount))
           : (tempExpense = tempExpense + Number(individualExp.amount));
       });
@@ -60,10 +60,10 @@ export const MainContextProvider = ({ children }) => {
     let newUniqueId = generateUniqueId();
     newExpenseObj.details[0].id = newUniqueId;
     let tempDetailedList = [...detailedTrackList];
-    let filteredByDateItem = tempDetailedList.filter(item => item.date == newExpenseObj.date);
+    let filteredByDateItem = tempDetailedList.filter(item => item.date === newExpenseObj.date);
     if (filteredByDateItem.length > 0) {
       let updatedList = tempDetailedList.map(item => {
-        if (item.date == newExpenseObj.date) {
+        if (item.date === newExpenseObj.date) {
           item.details.push(newExpenseObj.details[0]);
           return item;
         } else {
@@ -86,7 +86,7 @@ export const MainContextProvider = ({ children }) => {
     let updatedList = tempDetailedList.map(perDayList => {
       if (perDayList.date == updatedObj.date) {
         let updatedDetailsList = perDayList.details.map(item => {
-          if (Number(item.id) == Number(id)) {
+          if (Number(item.id) === Number(id)) {
             item = { ...updatedObj.details[0] };
             item.id = id;
             return item;
@@ -109,7 +109,7 @@ export const MainContextProvider = ({ children }) => {
         return { date: perDayList.date, details: updatedDetailsList };
       }
     });
-    if (dateChanged == true) {
+    if (dateChanged === true) {
       updatedObj.details[0].id = generateUniqueId();
       updatedList.push(updatedObj);
     }

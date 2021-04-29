@@ -11,9 +11,9 @@ export default function Toast({ toastObj, handleToast }) {
   }, [toastObj]);
 
   const computeStyle = () => {
-    if (toastObj.type == 'success') {
+    if (toastObj.type === 'success') {
       setToastStyles({ container: styles.successContainer, textStyle: styles.successText });
-    } else if (toastObj.type == 'warning') {
+    } else if (toastObj.type === 'warning') {
       setToastStyles({ container: styles.warningContainer, textStyle: styles.warningText });
     } else {
       setToastStyles({ container: styles.errorContainer, textStyle: styles.errorText });
