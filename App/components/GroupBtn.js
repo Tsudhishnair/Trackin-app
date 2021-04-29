@@ -11,7 +11,7 @@ export default function GroupBtn(props) {
 
   return (
     <View style={styles.container}>
-      {props.btn.map((btnItem, index) => {
+      {props.btn.map(btnItem => {
         return (
           <TouchableWithoutFeedback
             onPress={() => {
@@ -20,7 +20,7 @@ export default function GroupBtn(props) {
                 props.currentActiveBtn(btnItem);
               }
             }}
-            key={index}>
+            key={btnItem}>
             <View style={btnItem === activeBtn ? styles.activeBtn : styles.inActiveBtn}>
               <Text style={{ textTransform: 'capitalize' }}>{btnItem}</Text>
             </View>

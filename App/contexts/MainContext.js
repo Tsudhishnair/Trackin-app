@@ -29,7 +29,6 @@ export const MainContextProvider = ({ children }) => {
     });
   };
 
-  //Delete individual Expenses
   const deleteIndividualExpenses = id => {
     let tempDetailedList = [...detailedTrackList];
     let updatedList = tempDetailedList
@@ -55,9 +54,8 @@ export const MainContextProvider = ({ children }) => {
     }
   };
 
-  //Add new income/expense to the list
   const addNewExpense = newExpenseObj => {
-    let newUniqueId = generateUniqueId();
+    const newUniqueId = generateUniqueId();
     newExpenseObj.details[0].id = newUniqueId;
     let tempDetailedList = [...detailedTrackList];
     let filteredByDateItem = tempDetailedList.filter(item => item.date === newExpenseObj.date);
@@ -79,7 +77,6 @@ export const MainContextProvider = ({ children }) => {
     }
   };
 
-  // Edit existing income/expense
   const editExpense = (id, updatedObj) => {
     let tempDetailedList = [...detailedTrackList];
     let dateChanged = false;
@@ -145,10 +142,8 @@ export const MainContextProvider = ({ children }) => {
     updateDetailedTrackList(items);
   };
 
-  // For showing and setting detailed income/expense list
   const [detailedTrackList, updateDetailedTrackList] = useState([]);
 
-  // Values the consumers can access
   const contextValue = {
     summaryValue,
     setSummaryValue,

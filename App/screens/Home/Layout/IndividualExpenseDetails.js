@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, FlatList } from 'react-native';
 
 import colors from '../../../config/colors';
 
@@ -12,8 +12,8 @@ export default function ViewIndividualExpenseLayout({ id, detailedTrackList, han
             <View key={index}>
               {individualExpenseDetails.details
                 .filter(item => item.id === id)
-                .map((filteredList, index) => (
-                  <View key={`individual-expense-details-${index}`} style={styles.detailedExpenseWrapper}>
+                .map(filteredList => (
+                  <View key={filteredList.id} style={styles.detailedExpenseWrapper}>
                     <Text style={[styles.labelHeader]}>{filteredList.type}</Text>
                     <Text style={[styles.individualAmount, filteredList.type === 'income' ? { color: colors.green } : { color: colors.red }]}>
                       {`$${filteredList.amount}`}
