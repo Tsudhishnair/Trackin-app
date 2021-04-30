@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SectionList } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, SectionList, Image } from 'react-native';
 import dayjs from 'dayjs';
 
 import Card from '../../../components/Card';
 import colors from '../../../config/colors';
+import EmptyState from '../../../components/EmptyState';
 
 export default function ListExpenseLayout(props) {
   const { setAddOrViewLayout, setCurrentViewingExp, setBottomSheet, detailedTrackList } = props;
@@ -49,6 +50,16 @@ export default function ListExpenseLayout(props) {
     return <Text style={styles.date}>{formatDate(header)}</Text>;
   };
 
+  const emptyListComponent = () => {
+    return (
+      <EmptyState
+        icon={<Image source={require('../../../assets/expense.png')} style={styles.emptyStateIcon} />}
+        header={'No expense Record'}
+        description={'There are no records of expenses. Please start tracking your expenses.'}
+      />
+    );
+  };
+
   return (
     <View style={styles.listExpenseWrapper}>
       <SectionList
@@ -56,6 +67,7 @@ export default function ListExpenseLayout(props) {
         keyExtractor={(item, index) => item.id + index}
         renderItem={sectionItemList}
         renderSectionHeader={({ section: { date } }) => sectionHeader(date)}
+        ListEmptyComponent={emptyListComponent}
       />
     </View>
   );
@@ -91,5 +103,9 @@ const styles = StyleSheet.create({
     color: '#D10000',
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  emptyStateIcon: {
+    width: 150,
+    height: 150,
   },
 });
