@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: colors.textColor,
     fontSize: 20,
-    marginVertical: 5,
+    marginVertical: 6,
   },
   description: {
     color: colors.textColor,

@@ -54,7 +54,7 @@ export default function ListExpenseLayout(props) {
     return (
       <EmptyState
         icon={<Image source={require('../../../assets/expense.png')} style={styles.emptyStateIcon} />}
-        header={'No expense Record'}
+        header={'No expense record found'}
         description={'There are no records of expenses. Please start tracking your expenses.'}
       />
     );
@@ -106,8 +106,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   emptyStateIcon: {
-    width: 150,
-    height: 150,
+    width: 110,
+    height: 110,
   },
   sectionListContainer: {
     flexGrow: 0.5,

@@ -6,7 +6,7 @@
     "orientation": "default",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./App/assets/TrackIT.png",
+      "image": "./App/assets/splashScreen.png",
       "resizeMode": "contain",
       "backgroundColor": "#FFC700"
     },
