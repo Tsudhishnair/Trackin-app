@@ -3,26 +3,30 @@ import { View, StyleSheet, TouchableWithoutFeedback, Text } from 'react-native';
 import { useState } from 'react/cjs/react.development';
 
 export default function GroupBtn(props) {
-  const [activeBtn, setActiveBtn] = useState(props.defaultValue);
+  const { currentActiveBtn, defaultValue, btn } = props;
+  const [activeBtn, setActiveBtn] = useState(defaultValue);
 
   useEffect(() => {
-    props.currentActiveBtn(props.defaultValue);
+    currentActiveBtn(defaultValue);
   }, []);
 
+  const handleBtnPress = btnItem => {
+    if (activeBtn != btnItem) {
+      setActiveBtn(btnItem);
+      currentActiveBtn(btnItem);
+    }
+  };
   return (
     <View style={styles.container}>
-      {props.btn.map(btnItem => {
+      {btn.map(btnItem => {
         return (
           <TouchableWithoutFeedback
             onPress={() => {
-              if (activeBtn != btnItem) {
-                setActiveBtn(btnItem);
-                props.currentActiveBtn(btnItem);
-              }
+              handleBtnPress(btnItem);
             }}
             key={btnItem}>
             <View style={btnItem === activeBtn ? styles.activeBtn : styles.inActiveBtn}>
-              <Text style={{ textTransform: 'capitalize' }}>{btnItem}</Text>
+              <Text style={styles.buttonText}>{btnItem}</Text>
             </View>
           </TouchableWithoutFeedback>
         );
@@ -50,5 +54,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#E9E9E9',
     padding: 15,
     paddingHorizontal: 25,
+  },
+  buttonText: {
+    textTransform: 'capitalize',
   },
 });
