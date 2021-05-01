@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 
 import colors from '../config/colors';
 
@@ -8,6 +9,9 @@ export default function Toast({ toastObj, handleToast }) {
 
   useEffect(() => {
     computeStyle();
+    setTimeout(function () {
+      handlePress();
+    }, 3000);
   }, [toastObj]);
 
   const computeStyle = () => {
@@ -25,11 +29,14 @@ export default function Toast({ toastObj, handleToast }) {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={() => handlePress()}>
-      <View style={[styles.toastContainer, toastStyles.container]}>
-        <Text style={toastStyles.textStyle}>{toastObj.message}</Text>
-      </View>
-    </TouchableWithoutFeedback>
+    <View style={[styles.toastContainer, toastStyles.container]}>
+      <Text style={toastStyles.textStyle}>{toastObj.message}</Text>
+      <TouchableOpacity onPress={() => handlePress()} activeOpacity={0.5}>
+        <View>
+          <AntDesign name="closecircle" size={20} color={colors.textColor} />
+        </View>
+      </TouchableOpacity>
+    </View>
   );
 }
 
@@ -44,6 +51,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     width: '90%',
     padding: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   successContainer: {
     borderColor: '#489c70',
