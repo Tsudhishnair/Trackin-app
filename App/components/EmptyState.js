@@ -1,28 +1,30 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import colors from '../config/colors';
 
 export default function EmptyState(props) {
+  const { icon, header, description, btn } = props;
+
   return (
     <View style={styles.container}>
-      <View>{props.icon}</View>
+      <View>{icon}</View>
       <View style={styles.emptyMessageWrapper}>
-        <Text style={styles.messageHeader}>{props.header}</Text>
-        <Text style={styles.description}>{props.description}</Text>
+        <Text style={styles.messageHeader}>{header}</Text>
+        <Text style={styles.description}>{description}</Text>
       </View>
-      <View style={styles.actionBtnWrapper}>
-        {props.btn && (
-          <TouchableWithoutFeedback
+      {btn && (
+        <View style={styles.actionBtnWrapper}>
+          <TouchableOpacity
             onPress={() => {
-              props.btn.onPressFn;
+              btn.onPressFn;
             }}>
             <View style={styles.actionBtn}>
-              <Text style={styles.actionBtnText}>{props.btn.btnText}</Text>
+              <Text style={styles.actionBtnText}>{btn.btnText}</Text>
             </View>
-          </TouchableWithoutFeedback>
-        )}
-      </View>
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 }
@@ -30,7 +32,7 @@ export default function EmptyState(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent:'center',
     alignItems: 'center',
   },
   emptyMessageWrapper: {
