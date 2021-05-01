@@ -68,6 +68,7 @@ export default function ListExpenseLayout(props) {
         renderItem={sectionItemList}
         renderSectionHeader={({ section: { date } }) => sectionHeader(date)}
         ListEmptyComponent={emptyListComponent}
+        contentContainerStyle={styles.sectionListContainer}
       />
     </View>
   );
@@ -107,5 +108,8 @@ const styles = StyleSheet.create({
   emptyStateIcon: {
     width: 150,
     height: 150,
+  },
+  sectionListContainer: {
+    flexGrow: 0.5,
   },
 });
