@@ -7,7 +7,7 @@ import Card from '../../../components/Card';
 export default function OverViewBlock({ summaryValue }) {
   return (
     <View style={styles.overViewContainer}>
-      <Card bgcolor={'#fff'}>
+      <Card>
         <View style={styles.overViewBody}>
           <View style={styles.amountWrapper}>
             <Text style={styles.label}>Balance</Text>

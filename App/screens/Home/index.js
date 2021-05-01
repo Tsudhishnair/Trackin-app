@@ -100,7 +100,7 @@ export default function Home() {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.homeContainer}>
       <StatusBar barStyle="light-content" backgroundColor={colors.brandColor} />
       <OverViewBlock summaryValue={summaryValue} />
       <ListExpenseLayout
@@ -141,6 +141,9 @@ export default function Home() {
 }
 
 const styles = StyleSheet.create({
+  homeContainer: {
+    flex: 1,
+  },
   fabButtonWrapper: {
     bottom: 20,
     alignSelf: 'center',
