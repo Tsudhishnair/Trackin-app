@@ -9,6 +9,9 @@ export const MainContextProvider = ({ children }) => {
     balance: 1000,
     expense: 0,
   });
+
+  const [detailedTrackList, updateDetailedTrackList] = useState([]);
+
   let uniqueIds = [];
 
   const calculateSummaryValues = () => {
@@ -135,7 +138,7 @@ export const MainContextProvider = ({ children }) => {
   const load = async () => {
     try {
       let item = await AsyncStorage.getItem('detailedTrackList');
-      if (item != null) {
+      if (item !== null) {
         item = JSON.parse(item);
         updateExpenseItems(item);
       }
@@ -151,7 +154,6 @@ export const MainContextProvider = ({ children }) => {
     updateDetailedTrackList(items);
   };
 
-  const [detailedTrackList, updateDetailedTrackList] = useState([]);
 
   const contextValue = {
     summaryValue,
