@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableWithoutFeedback, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableWithoutFeedback, StyleSheet, Button } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import dayjs from 'dayjs';
 
@@ -59,14 +59,13 @@ export default function AddEditExpenseLayout({ setFormValues, formValue, handleS
           }}
         />
       )}
-      <TouchableWithoutFeedback
+      <Button
+        title={'Save'}
+        color={colors.green}
         onPress={() => {
           handleSave();
-        }}>
-        <View style={styles.saveBtn}>
-          <Text style={styles.saveBtnText}>Save</Text>
-        </View>
-      </TouchableWithoutFeedback>
+        }}
+      />
     </View>
   );
 }
@@ -91,13 +90,5 @@ const styles = StyleSheet.create({
     padding: 9,
     borderRadius: 8,
     borderWidth: 1,
-  },
-  saveBtnText: {
-    color: colors.green,
-    fontSize: 16,
-    fontWeight: '400',
-  },
-  saveBtn: {
-    alignSelf: 'center',
   },
 });
