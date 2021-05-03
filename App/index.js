@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -54,6 +54,7 @@ export default function App() {
     <>
       <SafeAreaView style={styles.topContainer} />
       <SafeAreaView style={styles.rootContainer}>
+        <StatusBar barStyle="light-content" backgroundColor={colors.brandColor} />
         <NavigationContainer>
           <MainContextProvider>
             <Stack.Navigator

@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { View, StyleSheet, StatusBar } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 import FabButton from '../../components/FabButton';
 import SwipeableBottomSheet from '../../components/SwipeableBottomSheet';
-import colors from '../../config/colors';
+
 import { MainContext } from '../../contexts/MainContext';
 import ViewIndividualExpenseLayout from './Layout/IndividualExpenseDetails';
 import AddEditExpenseLayout from './Layout/AddEditExpense';
@@ -101,7 +101,6 @@ export default function Home() {
 
   return (
     <View style={styles.homeContainer}>
-      <StatusBar barStyle="light-content" backgroundColor={colors.brandColor} />
       <OverViewBlock summaryValue={summaryValue} />
       <ListExpenseLayout
         detailedTrackList={detailedTrackList}
